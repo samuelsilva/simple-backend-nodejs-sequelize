@@ -5,8 +5,14 @@
     const database = require('./db');
     const Product = require('./models/product');
     const Manufacturer = require('./models/manufacturer');
+    const Category = require('./models/category');
+
     await database.sync();
     
+    const newCategory = await Category.create({ name: 'IT' });
+    const product = await Product.findByPk(1);
+    product.setCategories([newCategory]);
+
     // Since the database already exists, I will force the re-creation
     //await database.sync({force: true});
     
